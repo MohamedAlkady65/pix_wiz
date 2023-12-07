@@ -37,10 +37,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     } else if (currentMode == EditMode.filter) {
       return buildFiltersActions(context);
     } else {
-      return const Row(
-        children: [],
-      );
+      return buildStartActions(context);
     }
+  }
+
+  Row buildStartActions(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+            iconSize: 32,
+            onPressed:
+                BlocProvider.of<EditImageCubit>(context).restoreOriginalImage,
+            icon: const Icon(Icons.restore)),
+        IconButton(iconSize: 32, onPressed: () {}, icon: const Icon(Icons.done))
+      ],
+    );
   }
 
   Row buildCropActions(BuildContext context) {
@@ -48,11 +59,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       children: [
         IconButton(
             iconSize: 32,
-            onPressed: () {
-              BlocProvider.of<EditImageCubit>(context).resetCropping();
-            },
+            onPressed: BlocProvider.of<EditImageCubit>(context).resetCropping,
             icon: const Icon(Icons.restore)),
-        IconButton(iconSize: 32, onPressed: () {}, icon: const Icon(Icons.done))
+        IconButton(
+            iconSize: 32,
+            onPressed: BlocProvider.of<EditImageCubit>(context).croppingDone,
+            icon: const Icon(Icons.done))
       ],
     );
   }
@@ -61,8 +73,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Row(
       children: [
         IconButton(
-            iconSize: 32, onPressed: () {}, icon: const Icon(Icons.restore)),
-        IconButton(iconSize: 32, onPressed: () {}, icon: const Icon(Icons.done))
+            iconSize: 32,
+            onPressed: BlocProvider.of<EditImageCubit>(context).filterDone,
+            icon: const Icon(Icons.done))
       ],
     );
   }

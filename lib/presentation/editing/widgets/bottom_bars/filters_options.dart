@@ -22,31 +22,31 @@ class FiltersOptions extends StatelessWidget {
               text: "Original",
               action: () {
                 BlocProvider.of<EditImageCubit>(context)
-                    .editAction(action: ActionTypes.original);
+                    .filterAction(action: ActionTypes.original);
               }),
           ActionOption(
               text: "Gray",
               action: () {
                 BlocProvider.of<EditImageCubit>(context)
-                    .editAction(action: ActionTypes.grayScale);
+                    .filterAction(action: ActionTypes.grayScale);
               }),
           ActionOption(
               text: "Sobel",
               action: () {
                 BlocProvider.of<EditImageCubit>(context)
-                    .editAction(action: ActionTypes.sobel);
+                    .filterAction(action: ActionTypes.sobel);
               }),
           ActionOption(
               text: "Threashold",
               action: () {
                 BlocProvider.of<EditImageCubit>(context)
-                    .editAction(action: ActionTypes.threashold);
+                    .filterAction(action: ActionTypes.threashold);
               }),
           ActionOption(
               text: "Edge Glow",
               action: () {
                 BlocProvider.of<EditImageCubit>(context)
-                    .editAction(action: ActionTypes.edgeGlow);
+                    .filterAction(action: ActionTypes.edgeGlow);
               }),
         ],
       ),

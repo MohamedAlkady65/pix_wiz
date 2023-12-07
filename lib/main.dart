@@ -4,11 +4,11 @@ import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
 import 'package:pix_wiz/presentation/home/home_screen.dart';
 
 void main() {
-  runApp(const App());
+  runApp(const PixWiz());
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+class PixWiz extends StatelessWidget {
+  const PixWiz({super.key});
 
   @override
   Widget build(BuildContext context) {

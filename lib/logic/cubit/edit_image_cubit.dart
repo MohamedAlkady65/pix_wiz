@@ -13,73 +13,76 @@ part 'edit_image_state.dart';
 
 class EditImageCubit extends Cubit<EditImageState> {
   EditImageCubit() : super(EditImageInitial());
-  File? originalImageFile;
-
-  img.Image? originalImage;
-  Uint8List? originalImageBytes;
 
   img.Image? editedImage;
+  Uint8List? originalImageBytes;
   Uint8List? editedImageBytes;
-
-  Uint8List? currentImageBytes;
+  Uint8List? filteredImageBytes;
 
   final GlobalKey<ExtendedImageEditorState> extendedEditorKey =
       GlobalKey<ExtendedImageEditorState>();
 
   EditMode _currentMode = EditMode.start;
 
+  img.Command? cmd;
+
   Future<bool> pickImage({required ImageSource source}) async {
     var picker = ImagePicker();
     var picked = await picker.pickImage(source: source);
     if (picked != null) {
-      originalImageFile = File(picked.path);
-      originalImageBytes = originalImageFile!.readAsBytesSync();
-      originalImage = img.decodeImage(originalImageBytes!)!;
-      currentImageBytes = originalImageBytes!;
+      originalImageBytes = File(picked.path).readAsBytesSync();
+      editedImageBytes = originalImageBytes;
+      editedImage = img.decodeImage(editedImageBytes!)!;
       emit(EditImageResult());
       return true;
     }
     return false;
   }
 
-  void editAction({required ActionTypes action}) async {
+  void restoreOriginalImage() {
+    editedImageBytes = originalImageBytes;
+    editedImage = img.decodeImage(editedImageBytes!)!;
+    emit(EditImageResult());
+  }
+
+  void filterAction({required ActionTypes action}) async {
     if (action == ActionTypes.original) {
-      currentImageBytes = originalImageBytes!;
+      filteredImageBytes = editedImageBytes!;
       emit(EditImageResult());
       return;
     }
 
-    var cmd = img.Command()
-      ..image(originalImage!)
+    cmd = img.Command()
+      ..image(editedImage!)
       ..copy();
 
     if (action == ActionTypes.sobel) {
-      cmd.sobel();
+      cmd!.sobel();
     } else if (action == ActionTypes.edgeGlow) {
-      cmd.edgeGlow();
+      cmd!.edgeGlow();
     } else if (action == ActionTypes.threashold) {
-      cmd.luminanceThreshold();
+      cmd!.luminanceThreshold();
     } else if (action == ActionTypes.grayScale) {
-      cmd.grayscale();
+      cmd!.grayscale();
     }
 
-    cmd.encodePng();
+    cmd!.encodePng();
 
-    editedImageBytes = await cmd.getBytes();
-    currentImageBytes = editedImageBytes!;
+    filteredImageBytes = await cmd!.getBytes();
     emit(EditImageResult());
+  }
+
+  void filterDone() {
+    if (cmd != null) {
+      editedImageBytes = cmd!.outputBytes;
+      editedImage = cmd!.outputImage;
+      cmd = null;
+    }
+    currentMode = EditMode.start;
   }
 
   void flip() {
     extendedEditorKey.currentState!.flip();
-  }
-
-  void resetCropping() {
-    extendedEditorKey.currentState!.reset();
-  }
-
-  void croppingDone() {
-    extendedEditorKey.currentState!.reset();
   }
 
   void rotateRight() {
@@ -90,8 +93,52 @@ class EditImageCubit extends Cubit<EditImageState> {
     extendedEditorKey.currentState!.rotate(right: false);
   }
 
+  void resetCropping() {
+    extendedEditorKey.currentState!.reset();
+  }
+
+  void croppingDone() async {
+    EditActionDetails editAction = extendedEditorKey.currentState!.editAction!;
+    print("x => ${editAction.flipX}");
+    print("y => ${editAction.flipY}");
+
+    if (editAction.needCrop) {
+      final Rect cropRect = extendedEditorKey.currentState!.getCropRect()!;
+      editedImage = img.copyCrop(editedImage!,
+          x: cropRect.left.toInt(),
+          y: cropRect.top.toInt(),
+          width: cropRect.width.toInt(),
+          height: cropRect.height.toInt());
+    }
+
+    if (editAction.needFlip) {
+      if (editAction.flipX && editAction.flipY) {
+        editedImage = img.flip(editedImage!, direction: img.FlipDirection.both);
+      } else if (editAction.flipY) {
+        editedImage =
+            img.flip(editedImage!, direction: img.FlipDirection.horizontal);
+      } else if (editAction.flipX) {
+        editedImage =
+            img.flip(editedImage!, direction: img.FlipDirection.vertical);
+      }
+    }
+
+    if (editAction.hasRotateAngle) {
+      editedImage = img.copyRotate(editedImage!,
+          angle: extendedEditorKey.currentState!.editAction!.rotateAngle);
+    }
+
+    editedImageBytes = img.encodePng(editedImage!);
+
+    emit(EditImageResult());
+    currentMode = EditMode.start;
+  }
+
   set currentMode(EditMode value) {
     _currentMode = value;
+    if (value == EditMode.filter) {
+      filteredImageBytes = editedImageBytes;
+    }
     emit(EditImageChangeMode());
   }
 
@@ -99,13 +146,17 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   void goBack(BuildContext context) {
     if (_currentMode == EditMode.start) {
-      originalImageFile = originalImage =
-          originalImageBytes = editedImage = editedImageBytes = null;
       Navigator.pop(context);
+      resetValues();
     } else {
       if (_currentMode == EditMode.crop || _currentMode == EditMode.filter) {
         currentMode = EditMode.start;
       }
     }
+  }
+
+  void resetValues() {
+    editedImage =
+        originalImageBytes = editedImageBytes = filteredImageBytes = cmd = null;
   }
 }

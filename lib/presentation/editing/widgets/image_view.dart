@@ -11,24 +11,30 @@ class ImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EditImageCubit editImageCubit = BlocProvider.of<EditImageCubit>(context);
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Align(
-            alignment: Alignment.topCenter,
+            alignment: Alignment.center,
             child: BlocBuilder<EditImageCubit, EditImageState>(
               builder: (context, state) {
                 if (state is EditImageResult || state is EditImageChangeMode) {
                   return ExtendedImage.memory(
-                    BlocProvider.of<EditImageCubit>(context).currentImageBytes!,
+                    editImageCubit.currentMode ==
+                            EditMode.filter
+                        ? editImageCubit
+                            .filteredImageBytes!
+                        : editImageCubit
+                            .editedImageBytes!,
                     fit: BoxFit.contain,
                     mode:
-                        BlocProvider.of<EditImageCubit>(context).currentMode ==
+                        editImageCubit.currentMode ==
                                 EditMode.crop
                             ? ExtendedImageMode.editor
                             : ExtendedImageMode.gesture,
                     extendedImageEditorKey:
-                        BlocProvider.of<EditImageCubit>(context)
+                        editImageCubit
                             .extendedEditorKey,
                     initGestureConfigHandler: (state) {
                       return GestureConfig();
