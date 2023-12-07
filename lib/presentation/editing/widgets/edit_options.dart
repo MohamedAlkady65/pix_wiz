@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pix_wiz/helper/action_types.dart';
 import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
 import 'package:pix_wiz/presentation/editing/widgets/action_option.dart';
 
@@ -18,9 +19,34 @@ class EditOptions extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           ActionOption(
+              text: "Original",
+              action: () {
+                BlocProvider.of<EditImageCubit>(context)
+                    .editAction(action: ActionTypes.original);
+              }),
+          ActionOption(
               text: "Gray",
               action: () {
-                BlocProvider.of<EditImageCubit>(context).editAction();
+                BlocProvider.of<EditImageCubit>(context)
+                    .editAction(action: ActionTypes.grayScale);
+              }),
+          ActionOption(
+              text: "Sobel",
+              action: () {
+                BlocProvider.of<EditImageCubit>(context)
+                    .editAction(action: ActionTypes.sobel);
+              }),
+          ActionOption(
+              text: "Threashold",
+              action: () {
+                BlocProvider.of<EditImageCubit>(context)
+                    .editAction(action: ActionTypes.threashold);
+              }),
+          ActionOption(
+              text: "Edge Glow",
+              action: () {
+                BlocProvider.of<EditImageCubit>(context)
+                    .editAction(action: ActionTypes.edgeGlow);
               }),
         ],
       ),

@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pix_wiz/helper/action_types.dart';
 
 part 'edit_image_state.dart';
 
@@ -30,9 +32,29 @@ class EditImageCubit extends Cubit<EditImageState> {
     return false;
   }
 
-  void editAction() {
-    editedImage = img.grayscale(originalImage);
-    editedImageBytes = img.encodePng(editedImage!);
+  void editAction({required ActionTypes action}) async {
+    if (action == ActionTypes.original) {
+      emit(EditImageOriginal(originalImageBytes));
+      return;
+    }
+
+    var cmd = img.Command()
+      ..image(originalImage)
+      ..copy();
+
+    if (action == ActionTypes.sobel) {
+      cmd.sobel();
+    } else if (action == ActionTypes.edgeGlow) {
+      cmd.edgeGlow();
+    } else if (action == ActionTypes.threashold) {
+      cmd.luminanceThreshold();
+    } else if (action == ActionTypes.grayScale) {
+      cmd.grayscale();
+    }
+
+    cmd.encodePng();
+
+    editedImageBytes = await cmd.getBytes();
     emit(EditImageEdited(editedImageBytes!));
   }
 }
