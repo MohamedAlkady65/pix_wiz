@@ -4,8 +4,8 @@ import 'package:pix_wiz/helper/action_types.dart';
 import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
 import 'package:pix_wiz/presentation/editing/widgets/action_option.dart';
 
-class EditOptions extends StatelessWidget {
-  const EditOptions({
+class FiltersOptions extends StatelessWidget {
+  const FiltersOptions({
     super.key,
   });
 
