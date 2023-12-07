@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pix_wiz/editing/editing_screen.dart';
+import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
+import 'package:pix_wiz/presentation/editing/editing_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -52,17 +52,14 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> pickImage(BuildContext context,
       {required ImageSource source}) async {
-    var picker = ImagePicker();
-    var picked = await picker.pickImage(source: source);
-    if (picked != null) {
-      var image = File(picked.path);
+    bool success = await BlocProvider.of<EditImageCubit>(context)
+        .pickImage(source: source);
+    if (success) {
       // ignore: use_build_context_synchronously
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EditingScreen(
-              originalImage: image,
-            ),
+            builder: (context) => const EditingScreen(),
           ));
     }
   }
