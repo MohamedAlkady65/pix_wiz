@@ -21,10 +21,12 @@ class EditImageCubit extends Cubit<EditImageState> {
   img.Image? editedImage;
   Uint8List? editedImageBytes;
 
+  Uint8List? currentImageBytes;
+
   final GlobalKey<ExtendedImageEditorState> extendedEditorKey =
       GlobalKey<ExtendedImageEditorState>();
 
-  EditMode currentMode = EditMode.filter;
+  EditMode _currentMode = EditMode.start;
 
   Future<bool> pickImage({required ImageSource source}) async {
     var picker = ImagePicker();
@@ -33,7 +35,8 @@ class EditImageCubit extends Cubit<EditImageState> {
       originalImageFile = File(picked.path);
       originalImageBytes = originalImageFile!.readAsBytesSync();
       originalImage = img.decodeImage(originalImageBytes!)!;
-      emit(EditImageOriginal(originalImageBytes!));
+      currentImageBytes = originalImageBytes!;
+      emit(EditImageResult());
       return true;
     }
     return false;
@@ -41,7 +44,8 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   void editAction({required ActionTypes action}) async {
     if (action == ActionTypes.original) {
-      emit(EditImageOriginal(originalImageBytes!));
+      currentImageBytes = originalImageBytes!;
+      emit(EditImageResult());
       return;
     }
 
@@ -62,7 +66,8 @@ class EditImageCubit extends Cubit<EditImageState> {
     cmd.encodePng();
 
     editedImageBytes = await cmd.getBytes();
-    emit(EditImageEdited(editedImageBytes!));
+    currentImageBytes = editedImageBytes!;
+    emit(EditImageResult());
   }
 
   void flip() {
@@ -85,15 +90,21 @@ class EditImageCubit extends Cubit<EditImageState> {
     extendedEditorKey.currentState!.rotate(right: false);
   }
 
+  set currentMode(EditMode value) {
+    _currentMode = value;
+    emit(EditImageChangeMode());
+  }
+
+  EditMode get currentMode => _currentMode;
+
   void goBack(BuildContext context) {
-    if (currentMode == EditMode.start) {
+    if (_currentMode == EditMode.start) {
       originalImageFile = originalImage =
           originalImageBytes = editedImage = editedImageBytes = null;
       Navigator.pop(context);
     } else {
-      if (currentMode == EditMode.crop || currentMode == EditMode.filter) {
+      if (_currentMode == EditMode.crop || _currentMode == EditMode.filter) {
         currentMode = EditMode.start;
-        emit(EditImageChangeMode());
       }
     }
   }

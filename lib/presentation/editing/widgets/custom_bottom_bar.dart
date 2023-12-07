@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/helper/edit_mode.dart';
 import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
-import 'package:pix_wiz/presentation/editing/widgets/extended_options.dart';
-import 'package:pix_wiz/presentation/editing/widgets/filters_options.dart';
+import 'package:pix_wiz/presentation/editing/widgets/bottom_bars/extended_options.dart';
+import 'package:pix_wiz/presentation/editing/widgets/bottom_bars/filters_options.dart';
+import 'package:pix_wiz/presentation/editing/widgets/bottom_bars/start_options.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({
@@ -21,7 +22,7 @@ class CustomBottomBar extends StatelessWidget {
         } else if (currentMode == EditMode.filter) {
           return const FiltersOptions();
         } else {
-          return const SizedBox();
+          return const StartOptions();
         }
       },
     );

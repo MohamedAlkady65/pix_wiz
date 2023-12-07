@@ -18,9 +18,9 @@ class ImageView extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: BlocBuilder<EditImageCubit, EditImageState>(
               builder: (context, state) {
-                if (state is EditImageResult) {
+                if (state is EditImageResult || state is EditImageChangeMode) {
                   return ExtendedImage.memory(
-                    state.image,
+                    BlocProvider.of<EditImageCubit>(context).currentImageBytes!,
                     fit: BoxFit.contain,
                     mode:
                         BlocProvider.of<EditImageCubit>(context).currentMode ==
