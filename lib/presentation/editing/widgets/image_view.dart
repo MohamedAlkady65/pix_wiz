@@ -3,7 +3,9 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/helper/edit_mode.dart';
+import 'package:pix_wiz/logic/crop/crop_cubit.dart';
 import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
+import 'package:pix_wiz/logic/filters/filters_cubit.dart';
 
 class ImageView extends StatelessWidget {
   const ImageView({
@@ -26,7 +28,7 @@ class ImageView extends StatelessWidget {
                     ColorFiltered(
                       colorFilter: ColorFilter.matrix(
                           ColorFilterAddons.brightness(
-                              (BlocProvider.of<EditImageCubit>(context)
+                              (BlocProvider.of<FiltersCubit>(context)
                                           .filterOptionsValues
                                           .brightnessValue ??
                                       0) /
@@ -41,7 +43,7 @@ class ImageView extends StatelessWidget {
                             ? ExtendedImageMode.editor
                             : ExtendedImageMode.gesture,
                         extendedImageEditorKey:
-                            editImageCubit.extendedEditorKey,
+                            BlocProvider.of<CropCubit>(context).extendedEditorKey,
                         initGestureConfigHandler: (state) {
                           return GestureConfig();
                         },

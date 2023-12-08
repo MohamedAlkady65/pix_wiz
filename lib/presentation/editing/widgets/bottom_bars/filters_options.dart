@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
+import 'package:pix_wiz/logic/filters/filters_cubit.dart';
 import 'package:pix_wiz/presentation/editing/widgets/action_option.dart';
 
 class FiltersOptions extends StatelessWidget {
@@ -51,12 +52,11 @@ class FiltersSliders extends StatelessWidget {
               min: -2.5,
               max: 2.5,
               onChanged: (value) {
-                BlocProvider.of<EditImageCubit>(context)
+                BlocProvider.of<FiltersCubit>(context)
                     .filterOptionsValues
                     .brightnessValue = value;
                 print(value);
-                BlocProvider.of<EditImageCubit>(context)
-                    .emit(EditImageResult());
+                BlocProvider.of<EditImageCubit>(context).emitResultState();
               },
             );
           },
