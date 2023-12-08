@@ -99,12 +99,12 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   void croppingDone() async {
     EditActionDetails editAction = extendedEditorKey.currentState!.editAction!;
-    print("x => ${editAction.flipX}");
-    print("y => ${editAction.flipY}");
+
+    var cropCmd = img.Command()..image(editedImage!);
 
     if (editAction.needCrop) {
       final Rect cropRect = extendedEditorKey.currentState!.getCropRect()!;
-      editedImage = img.copyCrop(editedImage!,
+      cropCmd.copyCrop(
           x: cropRect.left.toInt(),
           y: cropRect.top.toInt(),
           width: cropRect.width.toInt(),
@@ -113,22 +113,25 @@ class EditImageCubit extends Cubit<EditImageState> {
 
     if (editAction.needFlip) {
       if (editAction.flipX && editAction.flipY) {
-        editedImage = img.flip(editedImage!, direction: img.FlipDirection.both);
+        cropCmd.flip(direction: img.FlipDirection.both);
       } else if (editAction.flipY) {
-        editedImage =
-            img.flip(editedImage!, direction: img.FlipDirection.horizontal);
+        cropCmd.flip(direction: img.FlipDirection.horizontal);
       } else if (editAction.flipX) {
-        editedImage =
-            img.flip(editedImage!, direction: img.FlipDirection.vertical);
+        cropCmd.flip(direction: img.FlipDirection.vertical);
       }
     }
 
     if (editAction.hasRotateAngle) {
-      editedImage = img.copyRotate(editedImage!,
+      cropCmd.copyRotate(
           angle: extendedEditorKey.currentState!.editAction!.rotateAngle);
     }
 
-    editedImageBytes = img.encodePng(editedImage!);
+    cropCmd.encodePng();
+
+    await cropCmd.execute();
+
+    editedImage = cropCmd.outputImage;
+    editedImageBytes = cropCmd.outputBytes;
 
     emit(EditImageResult());
     currentMode = EditMode.start;
