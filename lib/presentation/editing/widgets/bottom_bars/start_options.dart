@@ -17,16 +17,22 @@ class StartOptions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ActionOption(
-              text: "Filters",
+              text: "Opetrations",
               action: () {
                 BlocProvider.of<EditImageCubit>(context).currentMode =
-                    EditMode.filter;
+                    EditMode.opetrations;
               }),
           ActionOption(
               text: "Crop",
               action: () {
                 BlocProvider.of<EditImageCubit>(context).currentMode =
                     EditMode.crop;
+              }),
+          ActionOption(
+              text: "Filters",
+              action: () {
+                BlocProvider.of<EditImageCubit>(context).currentMode =
+                    EditMode.filters;
               }),
         ],
       ),

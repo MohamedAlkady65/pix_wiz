@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     var currentMode = BlocProvider.of<EditImageCubit>(context).currentMode;
     if (currentMode == EditMode.crop) {
       return buildCropActions(context);
-    } else if (currentMode == EditMode.filter) {
+    } else if (currentMode == EditMode.opetrations) {
       return buildFiltersActions(context);
     } else {
       return buildStartActions(context);

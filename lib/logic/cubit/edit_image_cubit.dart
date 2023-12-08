@@ -8,6 +8,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pix_wiz/helper/action_types.dart';
 import 'package:pix_wiz/helper/edit_mode.dart';
+import 'package:pix_wiz/helper/filter_options_values.dart';
 
 part 'edit_image_state.dart';
 
@@ -17,7 +18,7 @@ class EditImageCubit extends Cubit<EditImageState> {
   img.Image? editedImage;
   Uint8List? originalImageBytes;
   Uint8List? editedImageBytes;
-  Uint8List? filteredImageBytes;
+  Uint8List? operationsImageBytes;
 
   final GlobalKey<ExtendedImageEditorState> extendedEditorKey =
       GlobalKey<ExtendedImageEditorState>();
@@ -25,6 +26,8 @@ class EditImageCubit extends Cubit<EditImageState> {
   EditMode _currentMode = EditMode.start;
 
   img.Command? cmd;
+
+  FilterOptionsValues filterOptionsValues = FilterOptionsValues();
 
   Future<bool> pickImage({required ImageSource source}) async {
     var picker = ImagePicker();
@@ -41,13 +44,15 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   void restoreOriginalImage() {
     editedImageBytes = originalImageBytes;
-    editedImage = img.decodeImage(editedImageBytes!)!;
     emit(EditImageResult());
+    editedImage = img.decodeImage(editedImageBytes!)!;
   }
 
-  void filterAction({required ActionTypes action}) async {
+  Future<void> filterAction({required ActionTypes action}) async {
+    emit(EditImageLoading());
+
     if (action == ActionTypes.original) {
-      filteredImageBytes = editedImageBytes!;
+      operationsImageBytes = editedImageBytes!;
       emit(EditImageResult());
       return;
     }
@@ -68,7 +73,8 @@ class EditImageCubit extends Cubit<EditImageState> {
 
     cmd!.encodePng();
 
-    filteredImageBytes = await cmd!.getBytes();
+    operationsImageBytes = await cmd!.getBytesThread();
+
     emit(EditImageResult());
   }
 
@@ -99,7 +105,14 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   void croppingDone() async {
     EditActionDetails editAction = extendedEditorKey.currentState!.editAction!;
+    if (!editAction.needCrop &&
+        !editAction.needFlip &&
+        !editAction.hasRotateAngle) {
+      currentMode = EditMode.start;
+      return;
+    }
 
+    emit(EditImageLoading());
     var cropCmd = img.Command()..image(editedImage!);
 
     if (editAction.needCrop) {
@@ -128,7 +141,7 @@ class EditImageCubit extends Cubit<EditImageState> {
 
     cropCmd.encodePng();
 
-    await cropCmd.execute();
+    await cropCmd.executeThread();
 
     editedImage = cropCmd.outputImage;
     editedImageBytes = cropCmd.outputBytes;
@@ -139,8 +152,8 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   set currentMode(EditMode value) {
     _currentMode = value;
-    if (value == EditMode.filter) {
-      filteredImageBytes = editedImageBytes;
+    if (value == EditMode.opetrations) {
+      operationsImageBytes = editedImageBytes;
     }
     emit(EditImageChangeMode());
   }
@@ -152,14 +165,15 @@ class EditImageCubit extends Cubit<EditImageState> {
       Navigator.pop(context);
       resetValues();
     } else {
-      if (_currentMode == EditMode.crop || _currentMode == EditMode.filter) {
+      if (_currentMode == EditMode.crop ||
+          _currentMode == EditMode.opetrations) {
         currentMode = EditMode.start;
       }
     }
   }
 
   void resetValues() {
-    editedImage =
-        originalImageBytes = editedImageBytes = filteredImageBytes = cmd = null;
+    editedImage = originalImageBytes =
+        editedImageBytes = operationsImageBytes = cmd = null;
   }
 }

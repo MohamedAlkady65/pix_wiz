@@ -1,5 +1,6 @@
 enum EditMode {
   start,
   crop,
-  filter,
+  opetrations,
+  filters,
 }

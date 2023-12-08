@@ -1,3 +1,4 @@
+import 'package:colorfilter_generator/addons.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,35 +20,46 @@ class ImageView extends StatelessWidget {
             alignment: Alignment.center,
             child: BlocBuilder<EditImageCubit, EditImageState>(
               builder: (context, state) {
-                if (state is EditImageResult || state is EditImageChangeMode) {
-                  return ExtendedImage.memory(
-                    editImageCubit.currentMode ==
-                            EditMode.filter
-                        ? editImageCubit
-                            .filteredImageBytes!
-                        : editImageCubit
-                            .editedImageBytes!,
-                    fit: BoxFit.contain,
-                    mode:
-                        editImageCubit.currentMode ==
-                                EditMode.crop
+                return Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    ColorFiltered(
+                      colorFilter: ColorFilter.matrix(
+                          ColorFilterAddons.brightness(
+                              (BlocProvider.of<EditImageCubit>(context)
+                                          .filterOptionsValues
+                                          .brightnessValue ??
+                                      0) /
+                                  255 *
+                                  100)),
+                      child: ExtendedImage.memory(
+                        editImageCubit.currentMode == EditMode.opetrations
+                            ? editImageCubit.operationsImageBytes!
+                            : editImageCubit.editedImageBytes!,
+                        fit: BoxFit.contain,
+                        mode: editImageCubit.currentMode == EditMode.crop
                             ? ExtendedImageMode.editor
                             : ExtendedImageMode.gesture,
-                    extendedImageEditorKey:
-                        editImageCubit
-                            .extendedEditorKey,
-                    initGestureConfigHandler: (state) {
-                      return GestureConfig();
-                    },
-                    initEditorConfigHandler: (state) {
-                      return EditorConfig(
-                        cropRectPadding: const EdgeInsets.all(8),
-                      );
-                    },
-                  );
-                } else {
-                  return const SizedBox();
-                }
+                        extendedImageEditorKey:
+                            editImageCubit.extendedEditorKey,
+                        initGestureConfigHandler: (state) {
+                          return GestureConfig();
+                        },
+                        initEditorConfigHandler: (state) {
+                          return EditorConfig(
+                            cropRectPadding: const EdgeInsets.all(8),
+                          );
+                        },
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                    if (state is EditImageLoading)
+                      Container(
+                          color: const Color(0x0F151515).withOpacity(0.4),
+                          child:
+                              const Center(child: CircularProgressIndicator()))
+                  ],
+                );
               },
             )),
       ),
