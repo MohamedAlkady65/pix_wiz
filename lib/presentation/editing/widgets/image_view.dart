@@ -1,4 +1,3 @@
-import 'package:colorfilter_generator/addons.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,13 +26,9 @@ class ImageView extends StatelessWidget {
                   children: [
                     ColorFiltered(
                       colorFilter: ColorFilter.matrix(
-                          ColorFilterAddons.brightness(
-                              (BlocProvider.of<FiltersCubit>(context)
-                                          .filterOptionsValues
-                                          .brightnessValue ??
-                                      0) /
-                                  255 *
-                                  100)),
+                          BlocProvider.of<FiltersCubit>(context)
+                              .filterOptionsValues
+                              .matrix),
                       child: ExtendedImage.memory(
                         editImageCubit.currentMode == EditMode.opetrations
                             ? editImageCubit.operationsImageBytes!
@@ -43,7 +38,8 @@ class ImageView extends StatelessWidget {
                             ? ExtendedImageMode.editor
                             : ExtendedImageMode.gesture,
                         extendedImageEditorKey:
-                            BlocProvider.of<CropCubit>(context).extendedEditorKey,
+                            BlocProvider.of<CropCubit>(context)
+                                .extendedEditorKey,
                         initGestureConfigHandler: (state) {
                           return GestureConfig();
                         },

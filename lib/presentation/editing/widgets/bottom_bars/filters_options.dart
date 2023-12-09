@@ -36,6 +36,32 @@ class FiltersOptions extends StatelessWidget {
                           filtersCubit.currentChoice =
                               FilterOptionsChoices.brightness;
                         }),
+                    ActionOption(
+                        text: "Saturation",
+                        icon: Icons.brightness_6_outlined,
+                        active: filtersCubit.currentChoice ==
+                            FilterOptionsChoices.saturation,
+                        action: () {
+                          filtersCubit.currentChoice =
+                              FilterOptionsChoices.saturation;
+                        }),
+                    ActionOption(
+                        text: "Contrast",
+                        icon: Icons.brightness_6_outlined,
+                        active: filtersCubit.currentChoice ==
+                            FilterOptionsChoices.contrast,
+                        action: () {
+                          filtersCubit.currentChoice =
+                              FilterOptionsChoices.contrast;
+                        }),
+                    ActionOption(
+                        text: "Hue",
+                        icon: Icons.brightness_6_outlined,
+                        active: filtersCubit.currentChoice ==
+                            FilterOptionsChoices.hue,
+                        action: () {
+                          filtersCubit.currentChoice = FilterOptionsChoices.hue;
+                        }),
                   ],
                 );
               },

@@ -23,6 +23,26 @@ class FiltersCubit extends Cubit<FiltersState> {
 
   FilterOptionsChoices get currentChoice => filterOptionsValues.choice;
 
+  void changeBrightness(value) {
+    filterOptionsValues.brightnessValue = value;
+    editImageCubit.emitResultState();
+  }
+
+  void changeSaturation(value) {
+    filterOptionsValues.saturationValue = value;
+    editImageCubit.emitResultState();
+  }
+
+  void changeHue(value) {
+    filterOptionsValues.hueValue = value;
+    editImageCubit.emitResultState();
+  }
+
+  void changeContrast(value) {
+    filterOptionsValues.contrastValue = value;
+    editImageCubit.emitResultState();
+  }
+
   void resetFilters() {}
   void filtersDone() {}
 }
