@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
+import 'package:pix_wiz/helper/filter_options_values.dart';
 import 'package:pix_wiz/logic/filters/filters_cubit.dart';
 import 'package:pix_wiz/presentation/editing/widgets/action_option.dart';
+import 'package:pix_wiz/presentation/editing/widgets/filters_sliders.dart';
 
 class FiltersOptions extends StatelessWidget {
   const FiltersOptions({super.key});
@@ -19,86 +20,29 @@ class FiltersOptions extends StatelessWidget {
             height: 80,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             color: const Color(0xFF2A2A2A),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                ActionOption(
-                    text: "Brightness",
-                    icon: Icons.brightness_6_outlined,
-                    action: () {}),
-              ],
+            child: BlocBuilder<FiltersCubit, FiltersState>(
+              builder: (context, state) {
+                FiltersCubit filtersCubit =
+                    BlocProvider.of<FiltersCubit>(context);
+                return ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ActionOption(
+                        text: "Brightness",
+                        icon: Icons.brightness_6_outlined,
+                        active: filtersCubit.currentChoice ==
+                            FilterOptionsChoices.brightness,
+                        action: () {
+                          filtersCubit.currentChoice =
+                              FilterOptionsChoices.brightness;
+                        }),
+                  ],
+                );
+              },
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-class FiltersSliders extends StatelessWidget {
-  const FiltersSliders({
-    super.key,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 60,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        color: const Color(0xFF2A2A2A),
-        child: BlocBuilder<EditImageCubit, EditImageState>(
-          builder: (context, state) {
-            return CustomSlider(
-              value: 0,
-              min: -2.5,
-              max: 2.5,
-              onChanged: (value) {
-                BlocProvider.of<FiltersCubit>(context)
-                    .filterOptionsValues
-                    .brightnessValue = value;
-                print(value);
-                BlocProvider.of<EditImageCubit>(context).emitResultState();
-              },
-            );
-          },
-        ));
-  }
-}
-
-class CustomSlider extends StatefulWidget {
-  const CustomSlider({
-    super.key,
-    required this.value,
-    required this.onChanged,
-    required this.min,
-    required this.max,
-  });
-  final double value;
-  final double min;
-  final double max;
-  final void Function(double) onChanged;
-  @override
-  State<CustomSlider> createState() => _CustomSliderState();
-}
-
-class _CustomSliderState extends State<CustomSlider> {
-  late double changedvalue;
-  @override
-  void initState() {
-    changedvalue = widget.value;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Slider(
-        value: changedvalue,
-        max: widget.max,
-        min: widget.min,
-        onChanged: (v) {
-          setState(() {
-            changedvalue = v;
-          });
-          widget.onChanged(v);
-        });
   }
 }

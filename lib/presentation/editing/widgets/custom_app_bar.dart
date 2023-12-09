@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/helper/edit_mode.dart';
 import 'package:pix_wiz/logic/crop/crop_cubit.dart';
 import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
+import 'package:pix_wiz/logic/filters/filters_cubit.dart';
 import 'package:pix_wiz/logic/operations/operations_cubit.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -66,6 +67,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
             iconSize: 32,
             onPressed: BlocProvider.of<CropCubit>(context).croppingDone,
+            icon: const Icon(Icons.done))
+      ],
+    );
+  }
+
+  Row buildFiltersActions(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+            iconSize: 32,
+            onPressed: BlocProvider.of<FiltersCubit>(context).resetFilters,
+            icon: const Icon(Icons.restore)),
+        IconButton(
+            iconSize: 32,
+            onPressed: BlocProvider.of<FiltersCubit>(context).filtersDone,
             icon: const Icon(Icons.done))
       ],
     );

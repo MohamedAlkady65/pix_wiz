@@ -19,7 +19,6 @@ class EditImageCubit extends Cubit<EditImageState> {
 
   EditMode _currentMode = EditMode.start;
 
-
   Future<bool> pickImage({required ImageSource source}) async {
     var picker = ImagePicker();
     var picked = await picker.pickImage(source: source);
@@ -47,7 +46,6 @@ class EditImageCubit extends Cubit<EditImageState> {
     emit(EditImageResult());
   }
 
-
   set currentMode(EditMode value) {
     _currentMode = value;
     if (value == EditMode.opetrations) {
@@ -63,10 +61,7 @@ class EditImageCubit extends Cubit<EditImageState> {
       Navigator.pop(context);
       resetValues();
     } else {
-      if (_currentMode == EditMode.crop ||
-          _currentMode == EditMode.opetrations) {
-        currentMode = EditMode.start;
-      }
+      currentMode = EditMode.start;
     }
   }
 

@@ -6,7 +6,9 @@ class ActionOption extends StatelessWidget {
     this.text,
     this.action,
     this.icon,
+    this.active = false,
   });
+  final bool active;
   final String? text;
   final void Function()? action;
   final IconData? icon;
@@ -25,8 +27,13 @@ class ActionOption extends StatelessWidget {
               Icon(
                 icon ?? Icons.star,
                 size: 36,
+                color: active ? Colors.blue : Colors.white,
               ),
-              if (text != null) Text(text!)
+              if (text != null)
+                Text(
+                  text!,
+                  style: TextStyle(color: active ? Colors.blue : Colors.white),
+                )
             ],
           ),
         ),
