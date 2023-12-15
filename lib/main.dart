@@ -29,10 +29,9 @@ class PixWiz extends StatelessWidget {
             create: (BuildContext context) =>
                 CropCubit(editImageCubit: editImageCubit)),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: const HomeScreen(),
+        home:  HomeScreen(),
       ),
     );
   }

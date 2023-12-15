@@ -17,15 +17,13 @@ class _EditingScreenState extends State<EditingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ImageView(),
-        ],
+    return Theme(
+      data: ThemeData.dark(),
+      child: const Scaffold(
+        appBar: CustomAppBar(),
+        body: ImageView(),
+        bottomNavigationBar: CustomBottomBar(),
       ),
-      bottomNavigationBar: CustomBottomBar(),
     );
   }
 }
