@@ -30,7 +30,7 @@ class CropCubit extends Cubit<CropState> {
     extendedEditorKey.currentState!.reset();
   }
 
-  void croppingDone() async {
+  Future<void> croppingDone() async {
     EditActionDetails editAction = extendedEditorKey.currentState!.editAction!;
     if (!editAction.needCrop &&
         !editAction.needFlip &&
@@ -69,9 +69,8 @@ class CropCubit extends Cubit<CropState> {
 
     await cropCmd.executeThread();
 
-    editImageCubit.image = cropCmd.outputImage;
-    editImageCubit.imageBytes = cropCmd.outputBytes;
-
-    editImageCubit.emitResultState();
+    editImageCubit.changeImage(
+        image: cropCmd.outputImage!, imageBytes: cropCmd.outputBytes!);
+    emit(CropImageAction());
   }
 }

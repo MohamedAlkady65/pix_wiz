@@ -34,7 +34,9 @@ class EditImageCubit extends Cubit<EditImageState> {
     image = img.decodeImage(imageBytes!)!;
   }
 
-  void emitResultState() {
+  void changeImage({required img.Image image, required Uint8List imageBytes}) {
+    this.image = image;
+    this.imageBytes = imageBytes;
     emit(EditImageResult());
   }
 }

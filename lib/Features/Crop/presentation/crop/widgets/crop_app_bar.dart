@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/Features/crop/logic/crop/crop_cubit.dart';
@@ -28,7 +27,10 @@ class CropAppbar extends StatelessWidget implements PreferredSizeWidget {
                 icon: const Icon(Icons.restore)),
             IconButton(
                 iconSize: 32,
-                onPressed: BlocProvider.of<CropCubit>(context).croppingDone,
+                onPressed: () async {
+                  await BlocProvider.of<CropCubit>(context).croppingDone();
+                  Navigator.of(context).pop();
+                },
                 icon: const Icon(Icons.done))
           ],
         )

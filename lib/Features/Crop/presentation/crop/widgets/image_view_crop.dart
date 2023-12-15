@@ -15,7 +15,7 @@ class ImageViewCrop extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Align(
             alignment: Alignment.center,
-            child: BlocBuilder<EditImageCubit, EditImageState>(
+            child: BlocBuilder<CropCubit, CropState>(
               builder: (context, state) {
                 return Stack(
                   fit: StackFit.expand,

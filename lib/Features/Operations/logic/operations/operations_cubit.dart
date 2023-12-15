@@ -8,10 +8,12 @@ import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 part 'operations_state.dart';
 
 class OperationsCubit extends Cubit<OperationsState> {
-  OperationsCubit({required this.editImageCubit}) : super(OperationsInitial());
+  OperationsCubit({required this.editImageCubit})
+      : imageBytes = editImageCubit.imageBytes!,
+        super(OperationsInitial());
 
   final EditImageCubit editImageCubit;
-  Uint8List? imageBytes;
+  Uint8List imageBytes;
 
   img.Command? cmd;
 
@@ -40,16 +42,15 @@ class OperationsCubit extends Cubit<OperationsState> {
 
     cmd!.encodePng();
 
-    imageBytes = await cmd!.getBytesThread();
+    imageBytes = (await cmd!.getBytesThread())!;
 
     emit(OperationsAction());
   }
 
-  void filterDone() {
+  void operationDone() {
     if (cmd != null) {
-      editImageCubit.imageBytes = cmd!.outputBytes;
-      editImageCubit.image = cmd!.outputImage;
-      editImageCubit.emitResultState();
+      editImageCubit.changeImage(
+          image: cmd!.outputImage!, imageBytes: cmd!.outputBytes!);
       cmd = null;
     }
   }

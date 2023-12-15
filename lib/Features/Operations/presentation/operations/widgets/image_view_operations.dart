@@ -1,7 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 import 'package:pix_wiz/Features/operations/logic/operations/operations_cubit.dart';
 
 class ImageViewOperations extends StatelessWidget {
@@ -21,7 +20,7 @@ class ImageViewOperations extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     ExtendedImage.memory(
-                      BlocProvider.of<OperationsCubit>(context).imageBytes!,
+                      BlocProvider.of<OperationsCubit>(context).imageBytes,
                       fit: BoxFit.contain,
                       mode: ExtendedImageMode.gesture,
                       initGestureConfigHandler: (state) {
@@ -29,7 +28,7 @@ class ImageViewOperations extends StatelessWidget {
                       },
                       alignment: Alignment.center,
                     ),
-                    if (state is EditImageLoading)
+                    if (state is OperationsLoading)
                       Container(
                           color: const Color(0x0F151515).withOpacity(0.4),
                           child:

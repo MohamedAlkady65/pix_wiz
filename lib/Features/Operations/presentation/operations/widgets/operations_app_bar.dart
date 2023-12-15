@@ -23,7 +23,10 @@ class OperationsAppbar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
                 iconSize: 32,
-                onPressed: BlocProvider.of<OperationsCubit>(context).filterDone,
+                onPressed: () {
+                  BlocProvider.of<OperationsCubit>(context).operationDone();
+                  Navigator.pop(context);
+                },
                 icon: const Icon(Icons.done))
           ],
         )

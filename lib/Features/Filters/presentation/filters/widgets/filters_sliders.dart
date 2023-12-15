@@ -11,6 +11,7 @@ class FiltersSliders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FiltersCubit, FiltersState>(
+      buildWhen: (pre, cur) => cur is FiltersChangeChoice,
       builder: (context, state) {
         var currentChoice =
             BlocProvider.of<FiltersCubit>(context).currentChoice;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pix_wiz/Features/operations/presentation/operations/operations_screen.dart';
 import 'package:pix_wiz/Features/crop/presentation/crop/crop_screen.dart';
 import 'package:pix_wiz/Core/components/action_option.dart';
 import 'package:pix_wiz/Features/filters/presentation/filters/filters_screen.dart';
-import 'package:pix_wiz/Features/operations/presentation/operations/operations_screen.dart';
 
 class EditingBottomBar extends StatelessWidget {
   const EditingBottomBar({super.key});
