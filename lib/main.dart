@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pix_wiz/logic/crop/crop_cubit.dart';
-import 'package:pix_wiz/logic/cubit/edit_image_cubit.dart';
-import 'package:pix_wiz/logic/filters/filters_cubit.dart';
-import 'package:pix_wiz/logic/operations/operations_cubit.dart';
-import 'package:pix_wiz/presentation/home/home_screen.dart';
+import 'package:pix_wiz/Features/crop/logic/crop/crop_cubit.dart';
+import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
+import 'package:pix_wiz/Features/filters/logic/filters/filters_cubit.dart';
+import 'package:pix_wiz/Features/Home/home_screen.dart';
+import 'package:pix_wiz/Features/operations/logic/operations/operations_cubit.dart';
 
 void main() {
   runApp(const PixWiz());
@@ -29,9 +29,10 @@ class PixWiz extends StatelessWidget {
             create: (BuildContext context) =>
                 CropCubit(editImageCubit: editImageCubit)),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home:  HomeScreen(),
+        theme: ThemeData.dark(),
+        home: const HomeScreen(),
       ),
     );
   }
