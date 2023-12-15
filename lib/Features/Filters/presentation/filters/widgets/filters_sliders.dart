@@ -15,70 +15,79 @@ class FiltersSliders extends StatelessWidget {
       builder: (context, state) {
         var currentChoice =
             BlocProvider.of<FiltersCubit>(context).currentChoice;
-        if (currentChoice == FilterOptionsChoices.none) {
-          return const SizedBox();
-        }
         if (currentChoice == FilterOptionsChoices.brightness) {
-          return CustomSlider(
-            key: UniqueKey(),
-            value: BlocProvider.of<FiltersCubit>(context)
-                    .filterOptionsValues
-                    .brightnessValue ??
-                0,
-            min: -100,
-            max: 100,
-            onChanged: (value) {
-              BlocProvider.of<FiltersCubit>(context).changeBrightness(value);
-            },
-          );
+          return brightness(context);
         }
-
         if (currentChoice == FilterOptionsChoices.saturation) {
-          return CustomSlider(
-            key: UniqueKey(),
-            value: BlocProvider.of<FiltersCubit>(context)
-                    .filterOptionsValues
-                    .saturationValue ??
-                0,
-            min: 0,
-            max: 100,
-            onChanged: (value) {
-              BlocProvider.of<FiltersCubit>(context).changeSaturation(value);
-            },
-          );
+          return saturation(context);
         }
-
         if (currentChoice == FilterOptionsChoices.contrast) {
-          return CustomSlider(
-            key: UniqueKey(),
-            value: BlocProvider.of<FiltersCubit>(context)
-                    .filterOptionsValues
-                    .contrastValue ??
-                0,
-            min: -100,
-            max: 100,
-            onChanged: (value) {
-              BlocProvider.of<FiltersCubit>(context).changeContrast(value);
-            },
-          );
+          return contrast(context);
         }
-
         if (currentChoice == FilterOptionsChoices.hue) {
-          return CustomSlider(
-            key: UniqueKey(),
-            value: BlocProvider.of<FiltersCubit>(context)
-                    .filterOptionsValues
-                    .hueValue ??
-                0,
-            min: 0,
-            max: 100,
-            onChanged: (value) {
-              BlocProvider.of<FiltersCubit>(context).changeHue(value);
-            },
-          );
+          return hue(context);
         } else {
           return const SizedBox();
         }
+      },
+    );
+  }
+
+  CustomSlider saturation(BuildContext context) {
+    return CustomSlider(
+      key: UniqueKey(),
+      value: BlocProvider.of<FiltersCubit>(context)
+              .filterOptionsValues
+              .saturationValue ??
+          0,
+      min: 0,
+      max: 100,
+      onChanged: (value) {
+        BlocProvider.of<FiltersCubit>(context).changeSaturation(value);
+      },
+    );
+  }
+
+  CustomSlider brightness(BuildContext context) {
+    return CustomSlider(
+      key: UniqueKey(),
+      value: BlocProvider.of<FiltersCubit>(context)
+              .filterOptionsValues
+              .brightnessValue ??
+          0,
+      min: -100,
+      max: 100,
+      onChanged: (value) {
+        BlocProvider.of<FiltersCubit>(context).changeBrightness(value);
+      },
+    );
+  }
+
+  CustomSlider hue(BuildContext context) {
+    return CustomSlider(
+      key: UniqueKey(),
+      value:
+          BlocProvider.of<FiltersCubit>(context).filterOptionsValues.hueValue ??
+              0,
+      min: 0,
+      max: 100,
+      onChanged: (value) {
+        BlocProvider.of<FiltersCubit>(context).changeHue(value);
+      },
+    );
+  }
+
+  CustomSlider contrast(BuildContext context) {
+    return CustomSlider(
+      key: UniqueKey(),
+      value: BlocProvider.of<FiltersCubit>(context)
+              .filterOptionsValues
+              .contrastValue ??
+          0,
+      min: -100,
+      max: 100,
+      onChanged: (value) {
+        BlocProvider.of<FiltersCubit>(context).changeContrast(value);
       },
     );
   }

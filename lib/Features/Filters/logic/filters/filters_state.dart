@@ -8,3 +8,4 @@ final class FiltersInitial extends FiltersState {}
 final class FiltersChangeChoice extends FiltersState {}
 
 final class FiltersAction extends FiltersState {}
+final class FiltersLoading extends FiltersState {}

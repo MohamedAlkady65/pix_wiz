@@ -75,6 +75,11 @@ class FilterOptionsValues {
 
     filters.add(ColorFilterAddons.hue(value));
   }
+
+  void reset() {
+    choice = FilterOptionsChoices.none;
+    brightnessValue = saturationValue = contrastValue = hueValue = null;
+  }
 }
 
 enum FilterOptionsChoices { none, brightness, saturation, contrast, hue }

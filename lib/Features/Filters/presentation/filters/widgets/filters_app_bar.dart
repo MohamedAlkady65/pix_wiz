@@ -23,11 +23,14 @@ class FiltersAppbar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
                 iconSize: 32,
-                onPressed: BlocProvider.of<FiltersCubit>(context).resetFilters,
+                onPressed: BlocProvider.of<FiltersCubit>(context).filtersReset,
                 icon: const Icon(Icons.restore)),
             IconButton(
                 iconSize: 32,
-                onPressed: BlocProvider.of<FiltersCubit>(context).filtersDone,
+                onPressed: () async {
+                  await BlocProvider.of<FiltersCubit>(context).filtersDone();
+                  Navigator.of(context).pop();
+                },
                 icon: const Icon(Icons.done))
           ],
         )

@@ -25,8 +25,8 @@ class FiltersBottomBar extends StatelessWidget {
               builder: (context, state) {
                 FiltersCubit filtersCubit =
                     BlocProvider.of<FiltersCubit>(context);
-                return ListView(
-                  scrollDirection: Axis.horizontal,
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ActionOption(
                         text: "Brightness",

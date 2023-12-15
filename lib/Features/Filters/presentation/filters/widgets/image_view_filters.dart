@@ -16,7 +16,8 @@ class ImageViewFilters extends StatelessWidget {
         child: Align(
             alignment: Alignment.center,
             child: BlocBuilder<FiltersCubit, FiltersState>(
-              buildWhen: (pre, cur) => cur is FiltersAction,
+              buildWhen: (pre, cur) =>
+                  cur is FiltersAction || cur is FiltersLoading,
               builder: (context, state) {
                 return Stack(
                   fit: StackFit.expand,
@@ -36,7 +37,7 @@ class ImageViewFilters extends StatelessWidget {
                         alignment: Alignment.center,
                       ),
                     ),
-                    if (state is EditImageLoading)
+                    if (state is FiltersLoading)
                       Container(
                           color: const Color(0x0F151515).withOpacity(0.4),
                           child:

@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pix_wiz/Core/helper/action_types.dart';

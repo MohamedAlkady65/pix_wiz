@@ -2,7 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pix_wiz/Core/helper/filter_options_values.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
-
+import 'package:image/image.dart' as img;
+import 'package:image_editor/image_editor.dart';
 part 'filters_state.dart';
 
 class FiltersCubit extends Cubit<FiltersState> {
@@ -43,6 +44,27 @@ class FiltersCubit extends Cubit<FiltersState> {
     emit(FiltersAction());
   }
 
-  void resetFilters() {}
-  void filtersDone() {}
+  void filtersReset() {
+    filterOptionsValues.reset();
+    emit(FiltersAction());
+    emit(FiltersChangeChoice());
+  }
+
+  Future<void> filtersDone() async {
+    emit(FiltersLoading());
+
+    final editorOption = ImageEditorOption();
+    editorOption.addOption(ColorOption(matrix: filterOptionsValues.matrix));
+
+    final editedImageBytes = (await ImageEditor.editImage(
+        image: editImageCubit.imageBytes!, imageEditorOption: editorOption))!;
+
+    final editedImage = img.decodeImage(editedImageBytes)!;
+
+    editImageCubit.changeImage(
+        image: editedImage, imageBytes: editedImageBytes);
+
+    emit(FiltersAction());
+  }
+
 }
