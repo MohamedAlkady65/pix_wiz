@@ -38,17 +38,8 @@ class AdjustBottomBar extends StatelessWidget {
                               AdjustOptionsChoices.brightness;
                         }),
                     ActionOption(
-                        text: "Saturation",
-                        icon: Icons.brightness_6_outlined,
-                        active: filtersCubit.currentChoice ==
-                            AdjustOptionsChoices.saturation,
-                        action: () {
-                          filtersCubit.currentChoice =
-                              AdjustOptionsChoices.saturation;
-                        }),
-                    ActionOption(
                         text: "Contrast",
-                        icon: Icons.brightness_6_outlined,
+                        icon: Icons.contrast,
                         active: filtersCubit.currentChoice ==
                             AdjustOptionsChoices.contrast,
                         action: () {
@@ -56,8 +47,17 @@ class AdjustBottomBar extends StatelessWidget {
                               AdjustOptionsChoices.contrast;
                         }),
                     ActionOption(
+                        text: "Saturation",
+                        icon: Icons.gradient,
+                        active: filtersCubit.currentChoice ==
+                            AdjustOptionsChoices.saturation,
+                        action: () {
+                          filtersCubit.currentChoice =
+                              AdjustOptionsChoices.saturation;
+                        }),
+                    ActionOption(
                         text: "Hue",
-                        icon: Icons.brightness_6_outlined,
+                        icon: Icons.invert_colors,
                         active: filtersCubit.currentChoice ==
                             AdjustOptionsChoices.hue,
                         action: () {

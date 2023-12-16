@@ -10,7 +10,7 @@ class CropAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text("Edit"),
+      title: const Text("Crop & Rotate"),
       leading: IconButton(
         iconSize: 32,
         onPressed: () {
@@ -29,6 +29,7 @@ class CropAppbar extends StatelessWidget implements PreferredSizeWidget {
                 iconSize: 32,
                 onPressed: () async {
                   await BlocProvider.of<CropCubit>(context).croppingDone();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.done))

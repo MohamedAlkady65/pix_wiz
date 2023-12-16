@@ -17,7 +17,8 @@ class EditingBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ActionOption(
-              text: "Opetrations",
+              text: "Filter",
+              icon: Icons.workspaces_rounded,
               action: () {
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
@@ -27,21 +28,23 @@ class EditingBottomBar extends StatelessWidget {
                 ));
               }),
           ActionOption(
-              text: "Crop",
+              text: "Adjust",
+              icon: Icons.tune,
               action: () {
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
-                      const CropScreen(),
+                      const AdjustScreen(),
                   transitionDuration: Duration.zero,
                   reverseTransitionDuration: Duration.zero,
                 ));
               }),
           ActionOption(
-              text: "Adjust",
+              text: "Crop",
+              icon: Icons.crop_rotate,
               action: () {
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
-                      const AdjustScreen(),
+                      const CropScreen(),
                   transitionDuration: Duration.zero,
                   reverseTransitionDuration: Duration.zero,
                 ));

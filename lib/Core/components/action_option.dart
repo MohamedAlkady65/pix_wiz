@@ -25,7 +25,7 @@ class ActionOption extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
-                icon ?? Icons.star,
+                icon ?? Icons.lens,
                 size: 36,
                 color: active ? Colors.blue : Colors.white,
               ),

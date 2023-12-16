@@ -10,7 +10,7 @@ class OperationsAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text("Edit"),
+      title: const Text("Filter"),
       leading: IconButton(
         iconSize: 32,
         onPressed: () {

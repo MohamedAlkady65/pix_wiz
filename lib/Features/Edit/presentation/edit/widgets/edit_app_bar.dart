@@ -24,7 +24,7 @@ class EditingAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed:
                 BlocProvider.of<EditImageCubit>(context).restoreOriginalImage,
             icon: const Icon(Icons.restore)),
-        IconButton(iconSize: 32, onPressed: () {}, icon: const Icon(Icons.done))
+        IconButton(iconSize: 32, onPressed: () {}, icon: const Icon(Icons.save_alt))
       ],
     );
   }
