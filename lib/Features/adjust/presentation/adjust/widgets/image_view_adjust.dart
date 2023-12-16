@@ -1,11 +1,11 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pix_wiz/Features/adjust/logic/adjust/adjust_cubit.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
-import 'package:pix_wiz/Features/filters/logic/filters/filters_cubit.dart';
 
-class ImageViewFilters extends StatelessWidget {
-  const ImageViewFilters({
+class ImageViewAdjust extends StatelessWidget {
+  const ImageViewAdjust({
     super.key,
   });
   @override
@@ -15,17 +15,17 @@ class ImageViewFilters extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Align(
             alignment: Alignment.center,
-            child: BlocBuilder<FiltersCubit, FiltersState>(
+            child: BlocBuilder<AdjustCubit, AdjustState>(
               buildWhen: (pre, cur) =>
-                  cur is FiltersAction || cur is FiltersLoading,
+                  cur is AdjustAction || cur is AdjustLoading,
               builder: (context, state) {
                 return Stack(
                   fit: StackFit.expand,
                   children: [
                     ColorFiltered(
                       colorFilter: ColorFilter.matrix(
-                          BlocProvider.of<FiltersCubit>(context)
-                              .filterOptionsValues
+                          BlocProvider.of<AdjustCubit>(context)
+                              .adjustOptionsValues
                               .matrix),
                       child: ExtendedImage.memory(
                         BlocProvider.of<EditImageCubit>(context).imageBytes!,
@@ -37,7 +37,7 @@ class ImageViewFilters extends StatelessWidget {
                         alignment: Alignment.center,
                       ),
                     ),
-                    if (state is FiltersLoading)
+                    if (state is AdjustLoading)
                       Container(
                           color: const Color(0x0F151515).withOpacity(0.4),
                           child:

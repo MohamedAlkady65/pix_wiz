@@ -1,9 +1,9 @@
 import 'package:colorfilter_generator/addons.dart';
 import 'package:colorfilter_generator/colorfilter_generator.dart';
 
-class FilterOptionsValues {
-  FilterOptionsValues() : choice = FilterOptionsChoices.none;
-  FilterOptionsChoices choice;
+class AdjustOptionsValues {
+  AdjustOptionsValues() : choice = AdjustOptionsChoices.none;
+  AdjustOptionsChoices choice;
   double? brightnessValue;
   double? saturationValue;
   double? contrastValue;
@@ -77,9 +77,9 @@ class FilterOptionsValues {
   }
 
   void reset() {
-    choice = FilterOptionsChoices.none;
+    choice = AdjustOptionsChoices.none;
     brightnessValue = saturationValue = contrastValue = hueValue = null;
   }
 }
 
-enum FilterOptionsChoices { none, brightness, saturation, contrast, hue }
+enum AdjustOptionsChoices { none, brightness, saturation, contrast, hue }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pix_wiz/Features/adjust/presentation/adjust/adjust_screen.dart';
 import 'package:pix_wiz/Features/operations/presentation/operations/operations_screen.dart';
 import 'package:pix_wiz/Features/crop/presentation/crop/crop_screen.dart';
 import 'package:pix_wiz/Core/components/action_option.dart';
-import 'package:pix_wiz/Features/filters/presentation/filters/filters_screen.dart';
 
 class EditingBottomBar extends StatelessWidget {
   const EditingBottomBar({super.key});
@@ -37,11 +37,11 @@ class EditingBottomBar extends StatelessWidget {
                 ));
               }),
           ActionOption(
-              text: "Filters",
+              text: "Adjust",
               action: () {
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
-                      const FiltersScreen(),
+                      const AdjustScreen(),
                   transitionDuration: Duration.zero,
                   reverseTransitionDuration: Duration.zero,
                 ));

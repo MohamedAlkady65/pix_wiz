@@ -22,49 +22,79 @@ class OperationsBottomBar extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              ActionOption(
-                  text: "Original",
-                  active:
-                      operationsCubit.currentAction == OperationsTypes.original,
-                  action: () {
-                    operationsCubit.filterAction(
-                        action: OperationsTypes.original);
-                  }),
-              ActionOption(
-                  text: "Gray",
-                  active: operationsCubit.currentAction ==
-                      OperationsTypes.grayScale,
-                  action: () {
-                    operationsCubit.filterAction(
-                        action: OperationsTypes.grayScale);
-                  }),
-              ActionOption(
-                  text: "Sobel",
-                  active:
-                      operationsCubit.currentAction == OperationsTypes.sobel,
-                  action: () {
-                    operationsCubit.filterAction(action: OperationsTypes.sobel);
-                  }),
-              ActionOption(
-                  text: "Threashold",
-                  active: operationsCubit.currentAction ==
-                      OperationsTypes.threashold,
-                  action: () {
-                    operationsCubit.filterAction(
-                        action: OperationsTypes.threashold);
-                  }),
-              ActionOption(
-                  text: "Edge Glow",
-                  active:
-                      operationsCubit.currentAction == OperationsTypes.edgeGlow,
-                  action: () {
-                    operationsCubit.filterAction(
-                        action: OperationsTypes.edgeGlow);
-                  }),
+              action(
+                  title: "Original",
+                  type: OperationsType.original,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Gray",
+                  type: OperationsType.grayScale,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Sobel",
+                  type: OperationsType.sobel,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Threashold",
+                  type: OperationsType.threashold,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Edge Glow",
+                  type: OperationsType.edgeGlow,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Billboard",
+                  type: OperationsType.billboard,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Bump",
+                  type: OperationsType.bumpToNormal,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Chromatic",
+                  type: OperationsType.chromaticAberration,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Emboss",
+                  type: OperationsType.emboss,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Blur",
+                  type: OperationsType.gaussianBlur,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Invert",
+                  type: OperationsType.invert,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Noise",
+                  type: OperationsType.noise,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Pixelate",
+                  type: OperationsType.pixelate,
+                  operationsCubit: operationsCubit),
+              action(
+                  title: "Sketch",
+                  type: OperationsType.sketch,
+                  operationsCubit: operationsCubit),
+            
             ],
           ),
         );
       },
     );
+  }
+
+  ActionOption action(
+      {required String title,
+      required OperationsType type,
+      required OperationsCubit operationsCubit}) {
+    return ActionOption(
+        text: title,
+        active: operationsCubit.currentAction == type,
+        action: () {
+          operationsCubit.filterAction(action: type);
+        });
   }
 }

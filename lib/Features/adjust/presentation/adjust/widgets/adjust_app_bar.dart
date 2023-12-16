@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pix_wiz/Features/filters/logic/filters/filters_cubit.dart';
+import 'package:pix_wiz/Features/adjust/logic/adjust/adjust_cubit.dart';
 
-class FiltersAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const FiltersAppbar({
+class AdjustAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const AdjustAppbar({
     super.key,
   });
 
@@ -23,12 +23,13 @@ class FiltersAppbar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
                 iconSize: 32,
-                onPressed: BlocProvider.of<FiltersCubit>(context).filtersReset,
+                onPressed: BlocProvider.of<AdjustCubit>(context).adjustReset,
                 icon: const Icon(Icons.restore)),
             IconButton(
                 iconSize: 32,
                 onPressed: () async {
-                  await BlocProvider.of<FiltersCubit>(context).filtersDone();
+                  await BlocProvider.of<AdjustCubit>(context).adjustDone();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.done))
