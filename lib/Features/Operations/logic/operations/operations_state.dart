@@ -6,3 +6,5 @@ sealed class OperationsState {}
 final class OperationsInitial extends OperationsState {}
 final class OperationsAction extends OperationsState {}
 final class OperationsLoading extends OperationsState {}
+
+final class OperationsChangeAction extends OperationsState {}
