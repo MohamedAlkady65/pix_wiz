@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 import 'package:pix_wiz/Features/home/home_screen.dart';
 
-void main() {
+void main() async {
   runApp(const PixWiz());
 }
 
