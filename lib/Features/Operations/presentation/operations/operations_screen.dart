@@ -14,10 +14,13 @@ class OperationsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => OperationsCubit(
           editImageCubit: BlocProvider.of<EditImageCubit>(context)),
-      child: const Scaffold(
-        appBar: OperationsAppbar(),
-        body: ImageViewOperations(),
-        bottomNavigationBar: OperationsBottomBar(),
+      child: Theme(
+        data: ThemeData.dark(),
+        child: const Scaffold(
+          appBar: OperationsAppbar(),
+          body: ImageViewOperations(),
+          bottomNavigationBar: OperationsBottomBar(),
+        ),
       ),
     );
   }

@@ -17,10 +17,13 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: EditingAppBar(),
-      body: ImageViewEdit(),
-      bottomNavigationBar: EditingBottomBar(),
+    return Theme(
+      data: ThemeData.dark(),
+      child: const Scaffold(
+        appBar: EditingAppBar(),
+        body: ImageViewEdit(),
+        bottomNavigationBar: EditingBottomBar(),
+      ),
     );
   }
 }

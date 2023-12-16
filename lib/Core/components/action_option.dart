@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pix_wiz/Core/colors.dart';
 
 class ActionOption extends StatelessWidget {
   const ActionOption({
@@ -27,7 +28,7 @@ class ActionOption extends StatelessWidget {
               Icon(
                 icon ?? Icons.lens,
                 size: 36,
-                color: active ? Colors.blue : Colors.white,
+                color: active ? kPrimaryColor : Colors.white,
               ),
               if (text != null)
                 Text(

@@ -14,10 +14,13 @@ class CropScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           CropCubit(editImageCubit: BlocProvider.of<EditImageCubit>(context)),
-      child: const Scaffold(
-        appBar: CropAppbar(),
-        body: ImageViewCrop(),
-        bottomNavigationBar: CropBottomBar(),
+      child: Theme(
+        data: ThemeData.dark(),
+        child: const Scaffold(
+          appBar: CropAppbar(),
+          body: ImageViewCrop(),
+          bottomNavigationBar: CropBottomBar(),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pix_wiz/Core/colors.dart';
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider({
@@ -31,6 +32,8 @@ class _CustomSliderState extends State<CustomSlider> {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       color: const Color(0xFF2A2A2A),
       child: Slider(
+          thumbColor: kPrimaryColor,
+          activeColor: kPrimaryColor,
           value: changedvalue,
           max: widget.max,
           min: widget.min,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pix_wiz/Core/helper/operations_types.dart';
+import 'package:pix_wiz/Features/operations/logic/operations_types.dart';
 import 'package:pix_wiz/Core/components/action_option.dart';
 import 'package:pix_wiz/Features/operations/logic/operations/operations_cubit.dart';
 

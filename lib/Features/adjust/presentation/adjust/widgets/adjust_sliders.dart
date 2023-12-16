@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pix_wiz/Core/helper/adjust_options_values.dart';
+import 'package:pix_wiz/Features/adjust/logic/adjust_options_values.dart';
 import 'package:pix_wiz/Features/adjust/logic/adjust/adjust_cubit.dart';
 import 'package:pix_wiz/Features/adjust/presentation/adjust/widgets/custom_slider.dart';
 

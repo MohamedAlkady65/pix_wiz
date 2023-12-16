@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:pix_wiz/Core/helper/operations_types.dart';
+import 'package:pix_wiz/Features/operations/logic/operations_types.dart';
 import 'package:image/image.dart' as img;
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 part 'operations_state.dart';

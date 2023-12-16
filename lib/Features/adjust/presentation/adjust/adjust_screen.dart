@@ -14,10 +14,13 @@ class AdjustScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           AdjustCubit(editImageCubit: BlocProvider.of<EditImageCubit>(context)),
-      child: const Scaffold(
-        appBar: AdjustAppbar(),
-        body: ImageViewAdjust(),
-        bottomNavigationBar: AdjustBottomBar(),
+      child: Theme(
+        data: ThemeData.dark(),
+        child: const Scaffold(
+          appBar: AdjustAppbar(),
+          body: ImageViewAdjust(),
+          bottomNavigationBar: AdjustBottomBar(),
+        ),
       ),
     );
   }

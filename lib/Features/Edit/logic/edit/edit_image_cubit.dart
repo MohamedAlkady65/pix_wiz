@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pix_wiz/Core/helper/dialog.dart';
 
 part 'edit_image_state.dart';
 
@@ -28,10 +29,17 @@ class EditImageCubit extends Cubit<EditImageState> {
     return false;
   }
 
-  void restoreOriginalImage() {
-    imageBytes = originalImageBytes;
-    emit(EditImageResult());
-    image = img.decodeImage(imageBytes!)!;
+  void restoreOriginalImage(BuildContext context) async {
+    final res = await showCustomDialog(
+        context: context,
+        title: 'Restore Original Image',
+        content: 'Are you sure you want to discard changes?');
+
+    if (res == true) {
+      imageBytes = originalImageBytes;
+      emit(EditImageResult());
+      image = img.decodeImage(imageBytes!)!;
+    }
   }
 
   void changeImage({required img.Image image, required Uint8List imageBytes}) {

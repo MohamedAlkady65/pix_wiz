@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:pix_wiz/Core/helper/adjust_options_values.dart';
+import 'package:pix_wiz/Features/adjust/logic/adjust_options_values.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_editor/image_editor.dart';
