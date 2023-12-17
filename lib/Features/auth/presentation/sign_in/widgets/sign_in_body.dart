@@ -9,6 +9,7 @@ import 'package:pix_wiz/Core/components/logo.dart';
 import 'package:pix_wiz/Features/auth/logic/sign_in/sign_in_cubit.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/sign_in_form.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/social_buttons.dart';
+import 'package:pix_wiz/Features/auth/presentation/sign_up/sign_up_screen.dart';
 import 'package:pix_wiz/Features/home/home_screen.dart';
 
 class SignInBody extends StatelessWidget {
@@ -30,7 +31,9 @@ class SignInBody extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Logo(size: 150,),
+                  const Logo(
+                    size: 150,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -86,12 +89,37 @@ class SignInBody extends StatelessWidget {
                   const Text(
                     "Or Login with",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   const SocialButtons(),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Don't have an account",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen(),
+                                ));
+                          },
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ))
+                    ],
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
