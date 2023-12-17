@@ -27,7 +27,9 @@ class SignUpBody extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Logo(),
+                  const Logo(
+                    size: 150,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

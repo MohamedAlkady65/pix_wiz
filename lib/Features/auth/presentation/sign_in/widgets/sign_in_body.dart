@@ -8,9 +8,8 @@ import 'package:pix_wiz/Core/components/custom_button.dart';
 import 'package:pix_wiz/Core/components/logo.dart';
 import 'package:pix_wiz/Features/auth/logic/sign_in/sign_in_cubit.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/sign_in_form.dart';
+import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/social_buttons.dart';
 import 'package:pix_wiz/Features/home/home_screen.dart';
-
-import 'social_buttons.dart';
 
 class SignInBody extends StatelessWidget {
   const SignInBody({super.key});
@@ -31,7 +30,7 @@ class SignInBody extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Logo(),
+                  const Logo(size: 150,),
                   const SizedBox(
                     height: 20,
                   ),

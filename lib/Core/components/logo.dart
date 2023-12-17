@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 
 class Logo extends StatelessWidget {
   const Logo({
-    super.key,
+    super.key, required this.size,
   });
-
+  final double size;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -14,7 +14,7 @@ class Logo extends StatelessWidget {
         borderRadius: BorderRadius.circular(99999),
         child: SvgPicture.asset(
           'assets/images/logo/logo1.svg',
-          width: 150,
+          width: size,
         ),
       ),
     );

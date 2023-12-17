@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pix_wiz/Core/helper/dialog.dart';
+import 'package:pix_wiz/Features/auth/presentation/sign_in/sign_in_screen.dart';
 
 part 'edit_image_state.dart';
 
@@ -46,5 +48,29 @@ class EditImageCubit extends Cubit<EditImageState> {
     this.image = image;
     this.imageBytes = imageBytes;
     emit(EditImageResult());
+  }
+
+  String getUserName(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SignInScreen(),
+          ));
+      return "";
+    } else {
+      return user.displayName ?? "";
+    }
+  }
+
+  void signOut(BuildContext context) async {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SignInScreen(),
+        ));
+
+    await FirebaseAuth.instance.signOut();
   }
 }
