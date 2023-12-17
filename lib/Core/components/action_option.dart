@@ -15,7 +15,8 @@ class ActionOption extends StatelessWidget {
   final IconData? icon;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: 100,
       padding: const EdgeInsets.only(right: 16),
       child: Material(
         type: MaterialType.transparency,
@@ -26,14 +27,15 @@ class ActionOption extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
-                icon ?? Icons.lens,
+                icon ?? Icons.adjust,
                 size: 36,
                 color: active ? kPrimaryColor : Colors.white,
               ),
               if (text != null)
                 Text(
                   text!,
-                  style: TextStyle(color: active ? Colors.blue : Colors.white),
+                  style:
+                      TextStyle(color: active ? kPrimaryColor : Colors.white),
                 )
             ],
           ),

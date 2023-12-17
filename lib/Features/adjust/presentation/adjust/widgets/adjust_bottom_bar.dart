@@ -14,6 +14,7 @@ class AdjustBottomBar extends StatelessWidget {
       height: 150,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const AdjustSliders(),
           Container(
@@ -25,45 +26,51 @@ class AdjustBottomBar extends StatelessWidget {
               builder: (context, state) {
                 AdjustCubit filtersCubit =
                     BlocProvider.of<AdjustCubit>(context);
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ActionOption(
-                        text: "Brightness",
-                        icon: Icons.brightness_6_outlined,
-                        active: filtersCubit.currentChoice ==
-                            AdjustOptionsChoices.brightness,
-                        action: () {
-                          filtersCubit.currentChoice =
-                              AdjustOptionsChoices.brightness;
-                        }),
-                    ActionOption(
-                        text: "Contrast",
-                        icon: Icons.contrast,
-                        active: filtersCubit.currentChoice ==
-                            AdjustOptionsChoices.contrast,
-                        action: () {
-                          filtersCubit.currentChoice =
-                              AdjustOptionsChoices.contrast;
-                        }),
-                    ActionOption(
-                        text: "Saturation",
-                        icon: Icons.gradient,
-                        active: filtersCubit.currentChoice ==
-                            AdjustOptionsChoices.saturation,
-                        action: () {
-                          filtersCubit.currentChoice =
-                              AdjustOptionsChoices.saturation;
-                        }),
-                    ActionOption(
-                        text: "Hue",
-                        icon: Icons.invert_colors,
-                        active: filtersCubit.currentChoice ==
-                            AdjustOptionsChoices.hue,
-                        action: () {
-                          filtersCubit.currentChoice = AdjustOptionsChoices.hue;
-                        }),
-                  ],
+                return Center(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ActionOption(
+                            text: "Brightness",
+                            icon: Icons.brightness_6_outlined,
+                            active: filtersCubit.currentChoice ==
+                                AdjustOptionsChoices.brightness,
+                            action: () {
+                              filtersCubit.currentChoice =
+                                  AdjustOptionsChoices.brightness;
+                            }),
+                        ActionOption(
+                            text: "Contrast",
+                            icon: Icons.contrast,
+                            active: filtersCubit.currentChoice ==
+                                AdjustOptionsChoices.contrast,
+                            action: () {
+                              filtersCubit.currentChoice =
+                                  AdjustOptionsChoices.contrast;
+                            }),
+                        ActionOption(
+                            text: "Saturation",
+                            icon: Icons.gradient,
+                            active: filtersCubit.currentChoice ==
+                                AdjustOptionsChoices.saturation,
+                            action: () {
+                              filtersCubit.currentChoice =
+                                  AdjustOptionsChoices.saturation;
+                            }),
+                        ActionOption(
+                            text: "Hue",
+                            icon: Icons.invert_colors,
+                            active: filtersCubit.currentChoice ==
+                                AdjustOptionsChoices.hue,
+                            action: () {
+                              filtersCubit.currentChoice =
+                                  AdjustOptionsChoices.hue;
+                            }),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),

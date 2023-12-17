@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/Core/colors.dart';
 import 'package:pix_wiz/Core/components/custom_button.dart';
 import 'package:pix_wiz/Core/components/logo.dart';
+import 'package:pix_wiz/Core/helper/dialog.dart';
 import 'package:pix_wiz/Features/auth/logic/sign_in/sign_in_cubit.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/sign_in_form.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/social_buttons.dart';
@@ -172,23 +173,7 @@ class SignInBody extends StatelessWidget {
     }
   }
 
-  void awesomeDialog({
-    required BuildContext context,
-    required String title,
-    required String message,
-    required DialogType type,
-  }) {
-    AwesomeDialog(
-      context: context,
-      dialogType: type,
-      title: title,
-      desc: message,
-      btnOkOnPress: () {},
-      btnOkText: "OK",
-      btnOkColor: kPrimaryColor,
-      padding: const EdgeInsets.all(8),
-    ).show();
-  }
+
 
   void consumerListener(context, state) {
     if (state is SignInSuccess) {

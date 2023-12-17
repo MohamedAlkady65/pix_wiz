@@ -9,4 +9,3 @@ class EditImageResult extends EditImageState {}
 
 final class EditImageLoading extends EditImageState {}
 
-final class EditImageChangeMode extends EditImageState {}

@@ -1,14 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pix_wiz/Core/helper/dialog.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/sign_in_screen.dart';
-
+import 'package:permission_handler/permission_handler.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 part 'edit_image_state.dart';
 
 class EditImageCubit extends Cubit<EditImageState> {
@@ -44,6 +47,29 @@ class EditImageCubit extends Cubit<EditImageState> {
     }
   }
 
+
+  void saveToGallery(BuildContext context) async {
+    var permission = await Permission.storage.status;
+    if (permission.isDenied) {
+      permission = await Permission.storage.request();
+    }
+    if (permission.isGranted) {
+      emit(EditImageLoading());
+      try {
+        await ImageGallerySaver.saveImage(
+          imageBytes!,
+        );
+        // ignore: use_build_context_synchronously
+        awesomeDialog(
+            context: context,
+            title: "Save To Gallery",
+            message: "Photo is saved successfully to the gallery",
+            type: DialogType.success);
+      } catch (_) {}
+      emit(EditImageResult());
+    }
+  }
+
   void changeImage({required img.Image image, required Uint8List imageBytes}) {
     this.image = image;
     this.imageBytes = imageBytes;
@@ -53,11 +79,14 @@ class EditImageCubit extends Cubit<EditImageState> {
   String getUserName(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SignInScreen(),
-          ));
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignInScreen(),
+            ));
+      });
+
       return "";
     } else {
       return user.displayName ?? "";

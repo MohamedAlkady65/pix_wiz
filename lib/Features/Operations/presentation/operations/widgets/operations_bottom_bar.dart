@@ -21,6 +21,7 @@ class OperationsBottomBar extends StatelessWidget {
           color: const Color(0xFF2A2A2A),
           child: ListView(
             scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
             children: [
               action(
                   title: "Original",
@@ -78,7 +79,6 @@ class OperationsBottomBar extends StatelessWidget {
                   title: "Sketch",
                   type: OperationsType.sketch,
                   operationsCubit: operationsCubit),
-            
             ],
           ),
         );

@@ -13,43 +13,48 @@ class EditingBottomBar extends StatelessWidget {
       height: 80,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       color: const Color(0xFF2A2A2A),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ActionOption(
-              text: "Filter",
-              icon: Icons.workspaces_rounded,
-              action: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const OperationsScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero,
-                ));
-              }),
-          ActionOption(
-              text: "Adjust",
-              icon: Icons.tune,
-              action: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const AdjustScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero,
-                ));
-              }),
-          ActionOption(
-              text: "Crop",
-              icon: Icons.crop_rotate,
-              action: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      const CropScreen(),
-                  transitionDuration: Duration.zero,
-                  reverseTransitionDuration: Duration.zero,
-                ));
-              }),
-        ],
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ActionOption(
+                  text: "Filter",
+                  icon: Icons.workspaces_rounded,
+                  action: () {
+                    Navigator.of(context).push(PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const OperationsScreen(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ));
+                  }),
+              ActionOption(
+                  text: "Adjust",
+                  icon: Icons.tune,
+                  action: () {
+                    Navigator.of(context).push(PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const AdjustScreen(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ));
+                  }),
+              ActionOption(
+                  text: "Crop",
+                  icon: Icons.crop_rotate,
+                  action: () {
+                    Navigator.of(context).push(PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const CropScreen(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ));
+                  }),
+            ],
+          ),
+        ),
       ),
     );
   }

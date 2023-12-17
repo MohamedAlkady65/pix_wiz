@@ -1,6 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pix_wiz/Core/colors.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 
 class ImageViewEdit extends StatelessWidget {
@@ -28,6 +29,15 @@ class ImageViewEdit extends StatelessWidget {
                       },
                       alignment: Alignment.center,
                     ),
+                    if (state is EditImageLoading)
+                      Container(
+                        color: const Color(0x0F151515).withOpacity(0.4),
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: kPrimaryColor,
+                          ),
+                        ),
+                      )
                   ],
                 );
               },

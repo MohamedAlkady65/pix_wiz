@@ -16,7 +16,7 @@ class SignUpForm extends StatelessWidget {
         children: [
           CustomTextField(
             hintText: "Username",
-            icon: Icons.email_outlined,
+            icon: Icons.person_outline,
             onSaved: (value) {
               BlocProvider.of<SignUpCubit>(context).fields.name = value;
             },
