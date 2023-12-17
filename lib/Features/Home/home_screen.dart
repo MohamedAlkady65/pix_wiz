@@ -6,13 +6,15 @@ import 'package:pix_wiz/Core/colors.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 import 'package:pix_wiz/Features/edit/presentation/edit/edit_screen.dart';
 
+import '../../Core/components/custom_button.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFf6f6f6),
+      backgroundColor: kBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -77,26 +79,5 @@ class HomeScreen extends StatelessWidget {
             builder: (context) => const EditScreen(),
           ));
     }
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, required this.onPressed});
-  final String text;
-  final void Function() onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: kPrimaryColor,
-            fixedSize: const Size.fromHeight(60),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16))),
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
-        ));
   }
 }

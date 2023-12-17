@@ -19,4 +19,9 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+
+    <string name="facebook_app_id">386654777258646</string>
+    <string name="fb_login_protocol_scheme">fb386654777258646</string>
+    <string name="facebook_client_token">2bbb55760310ca7aac4b8013fa0140f2</string>
+    <string name="app_name">PixWiz</string>
 </resources>
