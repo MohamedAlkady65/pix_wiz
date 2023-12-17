@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621211987093",
+    "project_id": "pix-wiz",
+    "storage_bucket": "pix-wiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621211987093:android:f344ab1dc7f851be00bf9c",
+        "android_client_info": {
+          "package_name": "com.example.pix_wiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0T-qTqVaLDz51Vqr2WJli2NmzUDqOZe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
