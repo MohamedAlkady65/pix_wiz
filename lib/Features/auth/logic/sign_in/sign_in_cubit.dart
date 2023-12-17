@@ -16,7 +16,7 @@ class SignInCubit extends Cubit<SignInState> {
       emit(SignInInitial());
       return;
     }
-    ;
+
     formkey.currentState!.save();
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -81,7 +81,6 @@ class SignInCubit extends Cubit<SignInState> {
         emit(SignInInitial());
         return "success";
       } else {
-
         emit(SignInInitial());
         return "email-empty";
       }

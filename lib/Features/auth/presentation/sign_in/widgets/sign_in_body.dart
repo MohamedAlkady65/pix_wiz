@@ -10,6 +10,8 @@ import 'package:pix_wiz/Features/auth/logic/sign_in/sign_in_cubit.dart';
 import 'package:pix_wiz/Features/auth/presentation/sign_in/widgets/sign_in_form.dart';
 import 'package:pix_wiz/Features/home/home_screen.dart';
 
+import 'social_buttons.dart';
+
 class SignInBody extends StatelessWidget {
   const SignInBody({super.key});
 
@@ -44,7 +46,7 @@ class SignInBody extends StatelessWidget {
                     height: 10,
                   ),
                   const Text(
-                    "Please sign in to continue using PixWiz",
+                    "Please Login to continue using PixWiz Editor",
                     style: TextStyle(
                       color: Color(0xFFA9A9A9),
                       fontSize: 16,
@@ -83,7 +85,7 @@ class SignInBody extends StatelessWidget {
                     height: 10,
                   ),
                   const Text(
-                    "Or Sign In with",
+                    "Or Login with",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                   ),
@@ -193,54 +195,5 @@ class SignInBody extends StatelessWidget {
             )
           ]
         : [];
-  }
-}
-
-class SocialButtons extends StatelessWidget {
-  const SocialButtons({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () {
-            BlocProvider.of<SignInCubit>(context).signInWithGoogle();
-          },
-          child: const CircleAvatar(
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage('assets/images/social/google.png'),
-            radius: 30,
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        GestureDetector(
-          onTap: () {
-            BlocProvider.of<SignInCubit>(context).signInWithFacebook();
-          },
-          child: const CircleAvatar(
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage('assets/images/social/facebook.png'),
-            radius: 30,
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: const CircleAvatar(
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage('assets/images/social/twitter.png'),
-            radius: 30,
-          ),
-        ),
-      ],
-    );
   }
 }

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/Core/colors.dart';
-import 'package:pix_wiz/Features/auth/presentation/sign_in/sign_in_screen.dart';
+import 'package:pix_wiz/Features/auth/presentation/sign_up/sign_up_screen.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -40,7 +40,7 @@ class PixWiz extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryColor),
         ),
         debugShowCheckedModeBanner: false,
-        home: const SignInScreen(),
+        home: const SignUpScreen(),
       ),
     );
   }
