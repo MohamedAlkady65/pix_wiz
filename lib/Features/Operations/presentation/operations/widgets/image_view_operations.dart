@@ -10,39 +10,37 @@ class ImageViewOperations extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Align(
-            alignment: Alignment.center,
-            child: BlocBuilder<OperationsCubit, OperationsState>(
-              builder: (context, state) {
-                return Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ExtendedImage.memory(
-                      BlocProvider.of<OperationsCubit>(context).imageBytes,
-                      fit: BoxFit.contain,
-                      mode: ExtendedImageMode.gesture,
-                      initGestureConfigHandler: (state) {
-                        return GestureConfig();
-                      },
-                      alignment: Alignment.center,
-                    ),
-                    if (state is OperationsLoading)
-                      Container(
-                        color: const Color(0x0F151515).withOpacity(0.4),
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            color: kPrimaryColor,
-                          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Align(
+          alignment: Alignment.center,
+          child: BlocBuilder<OperationsCubit, OperationsState>(
+            builder: (context, state) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  ExtendedImage.memory(
+                    BlocProvider.of<OperationsCubit>(context).imageBytes,
+                    fit: BoxFit.contain,
+                    mode: ExtendedImageMode.gesture,
+                    initGestureConfigHandler: (state) {
+                      return GestureConfig();
+                    },
+                    alignment: Alignment.center,
+                  ),
+                  if (state is OperationsLoading)
+                    Container(
+                      color: const Color(0x0F151515).withOpacity(0.4),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: kPrimaryColor,
                         ),
-                      )
-                  ],
-                );
-              },
-            )),
-      ),
+                      ),
+                    )
+                ],
+              );
+            },
+          )),
     );
   }
 }

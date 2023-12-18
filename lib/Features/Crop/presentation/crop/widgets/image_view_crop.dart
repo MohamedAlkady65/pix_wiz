@@ -11,44 +11,42 @@ class ImageViewCrop extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Align(
-            alignment: Alignment.center,
-            child: BlocBuilder<CropCubit, CropState>(
-              builder: (context, state) {
-                return Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ExtendedImage.memory(
-                      BlocProvider.of<EditImageCubit>(context).imageBytes!,
-                      fit: BoxFit.contain,
-                      mode: ExtendedImageMode.editor,
-                      extendedImageEditorKey:
-                          BlocProvider.of<CropCubit>(context).extendedEditorKey,
-                      initEditorConfigHandler: (state) {
-                        return EditorConfig(
-                          cropRectPadding: const EdgeInsets.all(8),
-                          cornerColor: kPrimaryColor
-                        );
-                      },
-                      alignment: Alignment.center,
-                    ),
-                    if (state is CropImageLoading)
-                      Container(
-                        color: const Color(0x0F151515).withOpacity(0.4),
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            color: kPrimaryColor,
-                          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Align(
+          alignment: Alignment.center,
+          child: BlocBuilder<CropCubit, CropState>(
+            builder: (context, state) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  ExtendedImage.memory(
+                    BlocProvider.of<EditImageCubit>(context).imageBytes!,
+                    fit: BoxFit.contain,
+                    mode: ExtendedImageMode.editor,
+                    extendedImageEditorKey:
+                        BlocProvider.of<CropCubit>(context).extendedEditorKey,
+                    initEditorConfigHandler: (state) {
+                      return EditorConfig(
+                        cropRectPadding: const EdgeInsets.all(8),
+                        cornerColor: kPrimaryColor
+                      );
+                    },
+                    alignment: Alignment.center,
+                  ),
+                  if (state is CropImageLoading)
+                    Container(
+                      color: const Color(0x0F151515).withOpacity(0.4),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: kPrimaryColor,
                         ),
-                      )
-                  ],
-                );
-              },
-            )),
-      ),
+                      ),
+                    )
+                ],
+              );
+            },
+          )),
     );
   }
 }

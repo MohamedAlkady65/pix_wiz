@@ -11,47 +11,45 @@ class ImageViewAdjust extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Align(
-            alignment: Alignment.center,
-            child: BlocBuilder<AdjustCubit, AdjustState>(
-              buildWhen: (pre, cur) =>
-                  cur is AdjustAction || cur is AdjustLoading,
-              builder: (context, state) {
-                return Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ColorFiltered(
-                      colorFilter: ColorFilter.matrix(
-                          BlocProvider.of<AdjustCubit>(context)
-                              .adjustOptionsValues
-                              .matrix),
-                      child: ExtendedImage.memory(
-                        BlocProvider.of<EditImageCubit>(context).imageBytes!,
-                        fit: BoxFit.contain,
-                        mode: ExtendedImageMode.gesture,
-                        initGestureConfigHandler: (state) {
-                          return GestureConfig();
-                        },
-                        alignment: Alignment.center,
-                      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Align(
+          alignment: Alignment.center,
+          child: BlocBuilder<AdjustCubit, AdjustState>(
+            buildWhen: (pre, cur) =>
+                cur is AdjustAction || cur is AdjustLoading,
+            builder: (context, state) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  ColorFiltered(
+                    colorFilter: ColorFilter.matrix(
+                        BlocProvider.of<AdjustCubit>(context)
+                            .adjustOptionsValues
+                            .matrix),
+                    child: ExtendedImage.memory(
+                      BlocProvider.of<EditImageCubit>(context).imageBytes!,
+                      fit: BoxFit.contain,
+                      mode: ExtendedImageMode.gesture,
+                      initGestureConfigHandler: (state) {
+                        return GestureConfig();
+                      },
+                      alignment: Alignment.center,
                     ),
-                    if (state is AdjustLoading)
-                      Container(
-                        color: const Color(0x0F151515).withOpacity(0.4),
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            color: kPrimaryColor,
-                          ),
+                  ),
+                  if (state is AdjustLoading)
+                    Container(
+                      color: const Color(0x0F151515).withOpacity(0.4),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: kPrimaryColor,
                         ),
-                      )
-                  ],
-                );
-              },
-            )),
-      ),
+                      ),
+                    )
+                ],
+              );
+            },
+          )),
     );
   }
 }
