@@ -29,7 +29,7 @@ class SignInForm extends StatelessWidget {
             },
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           CustomTextField(
             hintText: "Password",

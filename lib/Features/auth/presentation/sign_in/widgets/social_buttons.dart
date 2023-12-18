@@ -37,17 +37,6 @@ class SocialButtons extends StatelessWidget {
             radius: 30,
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: const CircleAvatar(
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage('assets/images/social/twitter.png'),
-            radius: 30,
-          ),
-        ),
       ],
     );
   }

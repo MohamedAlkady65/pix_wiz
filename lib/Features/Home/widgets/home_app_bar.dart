@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pix_wiz/Core/colors.dart';
+import 'package:pix_wiz/Core/helper/dialog.dart';
 import 'package:pix_wiz/Features/edit/logic/edit/edit_image_cubit.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -31,8 +32,15 @@ class HomeAppBar extends StatelessWidget {
               child: IconButton(
                 iconSize: 38,
                 color: kPrimaryColor,
-                onPressed: () {
-                  BlocProvider.of<EditImageCubit>(context).signOut(context);
+                onPressed: () async {
+                  final res = await showCustomDialog(
+                      context: context,
+                      title: "Logout",
+                      content: "Are you sure you want to logout");
+                  if (res == true) {
+                    // ignore: use_build_context_synchronously
+                    BlocProvider.of<EditImageCubit>(context).signOut(context);
+                  }
                 },
                 icon: const Icon(Icons.login_outlined),
               ),
