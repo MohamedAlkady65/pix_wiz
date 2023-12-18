@@ -17,7 +17,7 @@ class HomeAppBar extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            "Welcome $userName\nTo PixWiz Editor",
+            "Welcome\n$userName\nTo PixWiz Editor",
             textAlign: TextAlign.left,
             style: const TextStyle(
                 fontSize: 22,
